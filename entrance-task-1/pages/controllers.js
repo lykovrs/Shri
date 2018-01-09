@@ -1,13 +1,12 @@
-module.exports.index = function(req, res) {
-  console.log(req.query);
-  const query = req.query;
-
-  let response = {};
-
-  if ('user' in query) {
-    response.user = 'test user';
-  }
-
-  res.send(JSON.stringify(response));
+module.exports.index = function (req, res) {
+    res.send(`
+    <html>
+      <head>
+        <title>Shri 2018</title>
+        <script src="/scripts/test.js"></script>
+      </head>
+      <h1>Hello</h1>
+    </html>
+    `);
 };
 
