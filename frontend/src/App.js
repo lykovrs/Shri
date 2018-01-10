@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Designator from './components/Designator';
-import RowNotificator from './components/RowNotificator';
+import RowHeader from './components/RowHeader';
+import RowHint from './components/RowHint';
 
 class App extends Component {
   render() {
@@ -9,8 +9,8 @@ class App extends Component {
         <p>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <Designator text={'Ржавый Фред'} helperText={'3—6 человек'} />
-        <RowNotificator text={'Ржавый Фред'} />
+        <RowHeader text={'Ржавый Фред'} helperText={'3—6 человек'} />
+        <RowHint text={'Ржавый Фред'} />
       </div>
     );
   }

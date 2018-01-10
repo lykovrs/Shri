@@ -5,27 +5,26 @@ import injectSheet from 'react-jss';
 
 const styles = {
   main: {
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    lineHeight: '17px',
-    color: '#000'
+    padding: '0 8px',
+    lineHeight: '24px',
+    color: '#262626',
+    borderRadius: '4px',
+    boxShadow: '0 1px 8px 0 rgba(0,44,92,0.28)',
+    display: 'inline-block'
   },
   label: {
     fontWeight: 700,
-    fontSize: '15px'
+    fontSize: '11px'
   },
-  helperText: {
-    fontWeight: 400,
-    fontSize: '13px'
-  },
+
   disabled: {
     color: '#858E98'
   }
 };
 
-class Designator extends Component {
+class RowHint extends Component {
   render() {
-    const { classes, text, helperText, disabled } = this.props;
+    const { classes, text, disabled } = this.props;
     const wrapperClasses = classNames({
       [classes.main]: true,
       [classes.disabled]: disabled
@@ -33,16 +32,14 @@ class Designator extends Component {
     return (
       <div className={wrapperClasses}>
         <p className={classes.label}>{text}</p>
-        <p className={classes.helperText}>{helperText}</p>
       </div>
     );
   }
 }
 
-Designator.propTypes = {
+RowHint.propTypes = {
   text: PropTypes.string.isRequired,
-  helperText: PropTypes.string,
   disabled: PropTypes.bool
 };
 
-export default injectSheet(styles)(Designator);
+export default injectSheet(styles)(RowHint);
