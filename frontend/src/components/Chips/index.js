@@ -15,7 +15,7 @@ const styles = {
     overflow: 'hidden',
     verticalAlign: 'middle',
     '&:active': {
-      background: 'rgba(0,16,33,0.12)',
+      background: '#DCDFE1',
       '& *': {
         color: '#000'
       }
@@ -48,7 +48,7 @@ class Chips extends Component {
     const { classes, img, text } = this.props;
     return (
       <button className={classes.main}>
-        {img ? <img className={classes.avatar} src={img} /> : ''}
+        {img ? <img className={classes.avatar} src={img} alt={text} /> : ''}
         <span className={classes.label}>{text}</span>
         <span className={classes.closeBtn}>
           <Icon icon={ICONS.CLOSE} color={'currentColor'} size={24} />
