@@ -48,12 +48,7 @@ class Chips extends Component {
     const { classes, img, text } = this.props;
     return (
       <button className={classes.main}>
-        <img
-          className={classes.avatar}
-          src={
-            'https://tinyfac.es/data/avatars/03F55412-DE8A-4F83-AAA6-D67EE5CE48DA-200w.jpeg'
-          }
-        />
+        {img ? <img className={classes.avatar} src={img} /> : ''}
         <span className={classes.label}>{text}</span>
         <span className={classes.closeBtn}>
           <Icon icon={ICONS.CLOSE} color={'currentColor'} size={24} />
@@ -67,6 +62,5 @@ Chips.propTypes = {
   text: PropTypes.string.isRequired,
   img: PropTypes.string
 };
-Chips.defaultProps = {};
 
 export default injectSheet(styles)(Chips);

@@ -12,7 +12,12 @@ class App extends Component {
         </p>
         <RowHeader text={'Ржавый Фред'} helperText={'3—6 человек'} />
         <RowHint text={'Ржавый Фред'} />
-        <Chips text={'Лекс Лютер'} />
+        <Chips
+          text={'Лекс Лютер'}
+          img={
+            'https://tinyfac.es/data/avatars/03F55412-DE8A-4F83-AAA6-D67EE5CE48DA-200w.jpeg'
+          }
+        />
       </div>
     );
   }
