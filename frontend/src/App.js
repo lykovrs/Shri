@@ -3,6 +3,8 @@ import RowHeader from './components/RowHeader';
 import RowHint from './components/RowHint';
 import Chips from './components/Chips';
 import IconButton from './components/IconButton';
+import Slot from './components/Slot';
+import Button from './components/Button';
 
 class App extends Component {
   render() {
@@ -20,6 +22,12 @@ class App extends Component {
           }
         />
         <IconButton icon={'edit'} />
+        <Slot disabled={true} />
+        <Slot />
+        <Button text={'Создать встречу'} primary={true} />
+        <Button text={'Создать встречу'} primary={true} disabled={true} />
+        <Button text={'Отмена'} />
+        <Button text={'Отмена'} disabled={true} />
       </div>
     );
   }
