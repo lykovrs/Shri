@@ -46,11 +46,7 @@ const Chips = props => {
   const { classes, email, name } = props;
   return (
     <button className={classes.main}>
-      {email ? (
-        <Gravatar size={32} email={email} className={classes.avatar} />
-      ) : (
-        ''
-      )}
+      <Gravatar size={32} email={email} className={classes.avatar} />
       <span className={classes.label}>{name}</span>
       <span className={classes.closeBtn}>
         <Icon icon={ICONS.CLOSE} color={'currentColor'} size={24} />
