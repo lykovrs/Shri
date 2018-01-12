@@ -5,6 +5,7 @@ import Chips from './components/Chips';
 import IconButton from './components/IconButton';
 import Slot from './components/Slot';
 import Button from './components/Button';
+import Combobox from './components/Combobox';
 
 class App extends Component {
   render() {
@@ -15,12 +16,7 @@ class App extends Component {
         </p>
         <RowHeader text={'Ржавый Фред'} helperText={'3—6 человек'} />
         <RowHint text={'Ржавый Фред'} />
-        <Chips
-          text={'Лекс Лютер'}
-          img={
-            'https://tinyfac.es/data/avatars/03F55412-DE8A-4F83-AAA6-D67EE5CE48DA-200w.jpeg'
-          }
-        />
+        <Chips name={'Лекс Лютер'} email={'mathews.kyle@gmail.com'} />
         <IconButton icon={'edit'} />
         <Slot disabled={true} />
         <Slot />
@@ -28,6 +24,7 @@ class App extends Component {
         <Button text={'Создать встречу'} primary={true} disabled={true} />
         <Button text={'Отмена'} />
         <Button text={'Отмена'} disabled={true} />
+        <Combobox />
       </div>
     );
   }

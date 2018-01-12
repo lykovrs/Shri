@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Icon from '../Icon';
 import { ICONS } from '../../constants';
+import Gravatar from 'react-gravatar';
 
 const styles = {
   main: {
@@ -37,18 +38,20 @@ const styles = {
   },
 
   avatar: {
-    borderRadius: '16px',
-    height: '32px',
-    width: '32px'
+    borderRadius: '16px'
   }
 };
 
 const Chips = props => {
-  const { classes, img, text } = props;
+  const { classes, email, name } = props;
   return (
     <button className={classes.main}>
-      {img ? <img className={classes.avatar} src={img} alt={text} /> : ''}
-      <span className={classes.label}>{text}</span>
+      {email ? (
+        <Gravatar size={32} email={email} className={classes.avatar} />
+      ) : (
+        ''
+      )}
+      <span className={classes.label}>{name}</span>
       <span className={classes.closeBtn}>
         <Icon icon={ICONS.CLOSE} color={'currentColor'} size={24} />
       </span>
@@ -57,8 +60,8 @@ const Chips = props => {
 };
 
 Chips.propTypes = {
-  text: PropTypes.string.isRequired,
-  img: PropTypes.string
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string
 };
 
 export default injectSheet(styles)(Chips);
