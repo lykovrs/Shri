@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Icon from '../Icon';
@@ -43,20 +43,18 @@ const styles = {
   }
 };
 
-class Chips extends Component {
-  render() {
-    const { classes, img, text } = this.props;
-    return (
-      <button className={classes.main}>
-        {img ? <img className={classes.avatar} src={img} alt={text} /> : ''}
-        <span className={classes.label}>{text}</span>
-        <span className={classes.closeBtn}>
-          <Icon icon={ICONS.CLOSE} color={'currentColor'} size={24} />
-        </span>
-      </button>
-    );
-  }
-}
+const Chips = props => {
+  const { classes, img, text } = props;
+  return (
+    <button className={classes.main}>
+      {img ? <img className={classes.avatar} src={img} alt={text} /> : ''}
+      <span className={classes.label}>{text}</span>
+      <span className={classes.closeBtn}>
+        <Icon icon={ICONS.CLOSE} color={'currentColor'} size={24} />
+      </span>
+    </button>
+  );
+};
 
 Chips.propTypes = {
   text: PropTypes.string.isRequired,

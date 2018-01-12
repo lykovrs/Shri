@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
@@ -23,21 +23,19 @@ const styles = {
   }
 };
 
-class RowHeader extends Component {
-  render() {
-    const { classes, text, helperText, disabled } = this.props;
-    const wrapperClasses = classNames({
-      [classes.main]: true,
-      [classes.disabled]: disabled
-    });
-    return (
-      <div className={wrapperClasses}>
-        <p className={classes.label}>{text}</p>
-        <p className={classes.helperText}>{helperText}</p>
-      </div>
-    );
-  }
-}
+const RowHeader = props => {
+  const { classes, text, helperText, disabled } = props;
+  const wrapperClasses = classNames({
+    [classes.main]: true,
+    [classes.disabled]: disabled
+  });
+  return (
+    <div className={wrapperClasses}>
+      <p className={classes.label}>{text}</p>
+      <p className={classes.helperText}>{helperText}</p>
+    </div>
+  );
+};
 
 RowHeader.propTypes = {
   text: PropTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Icon from '../Icon';
@@ -18,20 +18,14 @@ const styles = {
   }
 };
 
-class IconButton extends Component {
-  render() {
-    const { classes, icon } = this.props;
-    return (
-      <button className={classes.main}>
-        <Icon
-          icon={ICONS[icon.toUpperCase()]}
-          color={'currentColor'}
-          size={24}
-        />
-      </button>
-    );
-  }
-}
+const IconButton = props => {
+  const { classes, icon } = props;
+  return (
+    <button className={classes.main}>
+      <Icon icon={ICONS[icon.toUpperCase()]} color={'currentColor'} size={24} />
+    </button>
+  );
+};
 
 IconButton.propTypes = {
   icon: PropTypes.string.isRequired
