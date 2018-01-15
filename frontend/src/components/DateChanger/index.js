@@ -22,14 +22,15 @@ const styles = {
     textAlign: 'center'
   },
   calendarWrapper: {
-    position: 'absolute',
-    height: '380px',
     background: '#fff',
-    padding: '16px',
-    top: '100%',
+    borderRadius: '0 0 8px 8px',
+    boxShadow: '0 1px 16px 0 rgba(0,44,92,0.28);',
+    height: '380px',
     left: '0',
+    padding: '16px',
+    position: 'absolute',
     right: '0',
-    boxShadow: '0 1px 16px 0 rgba(0,44,92,0.28);'
+    top: '100%'
   }
 };
 class DateChanger extends Component {
