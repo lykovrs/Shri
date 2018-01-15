@@ -14,11 +14,22 @@ const styles = {
     fontWeight: '600',
     height: '56px',
     justifyContent: 'center',
-    padding: '16px'
+    padding: '16px',
+    position: 'relative'
   },
   now: {
     flex: '1 1 auto',
     textAlign: 'center'
+  },
+  calendarWrapper: {
+    position: 'absolute',
+    height: '380px',
+    background: '#fff',
+    padding: '16px',
+    top: '100%',
+    left: '0',
+    right: '0',
+    boxShadow: '0 1px 16px 0 rgba(0,44,92,0.28);'
   }
 };
 class DateChanger extends Component {
@@ -29,6 +40,7 @@ class DateChanger extends Component {
         <IconButton icon={'close'} />
         <span className={classes.now}>14 дек · Сегодня</span>
         <IconButton icon={'close'} />
+        <div className={classes.calendarWrapper} />
       </div>
     );
   }
