@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import RowHeader from './components/RowHeader';
-import RowHint from './components/RowHint';
-import Chips from './components/Chips';
-import IconButton from './components/IconButton';
-import Slot from './components/Slot';
-import Button from './components/Button';
-import Combobox from './components/Combobox';
+import RowHeader from '../RowHeader/index';
+import RowHint from '../RowHint/index';
+import Chips from '../Chips/index';
+import IconButton from '../IconButton/index';
+import Slot from '../Slot/index';
+import Button from '../Button/index';
+import Combobox from '../Combobox/index';
 
 class App extends Component {
   render() {
