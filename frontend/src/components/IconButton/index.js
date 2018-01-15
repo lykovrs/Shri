@@ -6,6 +6,8 @@ import { ICONS } from '../../constants';
 
 const styles = {
   main: {
+    border: 'none',
+    padding: 0,
     background: '#E9ECEF',
     borderRadius: '24px',
     color: '#AFB4B8',

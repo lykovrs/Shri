@@ -7,6 +7,8 @@ import Gravatar from 'react-gravatar';
 
 const styles = {
   main: {
+    border: 'none',
+    padding: 0,
     alignItems: 'center',
     background: '#E9ECEF',
     borderRadius: '16px',

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 const styles = {
   main: {
+    border: 'none',
     background: '#E9ECEF',
     borderRadius: '4px',
     fontSize: '15px',
