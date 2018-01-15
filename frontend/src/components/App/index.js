@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import MainRoute from '../routes/Main';
+import ShowRoute from '../routes/Show';
 import RowHeader from '../RowHeader/index';
 import RowHint from '../RowHint/index';
 import Chips from '../Chips/index';
@@ -13,6 +16,11 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <Switch>
+          <Route exact path="/" component={MainRoute} />
+          <Route path="/show" component={ShowRoute} />
+        </Switch>
+
         <p>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
