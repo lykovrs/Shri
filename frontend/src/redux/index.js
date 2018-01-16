@@ -7,7 +7,7 @@ import history from '../history';
 import saga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
-
+// const store = createStore(reducer, applyMiddleware(thunk, logger))
 const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware, routerMiddleware(history), logger)

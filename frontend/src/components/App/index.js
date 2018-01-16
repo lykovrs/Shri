@@ -10,11 +10,21 @@ import Slot from '../Slot/index';
 import Button from '../Button/index';
 import Combobox from '../Combobox/index';
 import Header from '../Header';
+import injectSheet from 'react-jss';
+
+const styles = {
+  wrapper: {
+    position: 'relative',
+    height: '100vh',
+    overflow: 'hidden'
+  }
+};
 
 class App extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.wrapper}>
         <Header />
         <Switch>
           <Route exact path="/" component={MainRoute} />
@@ -39,5 +49,4 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+export default injectSheet(styles)(App);
