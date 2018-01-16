@@ -65,15 +65,28 @@ class DateChanger extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.main}>
-        <IconButton icon={'close'} />
-        <span className={classes.now} onClick={this.toggleOpen}>
+        <div onClick={this.changeDay(-1)}>
+          <IconButton icon={'close'} />
+        </div>
+
+        <div className={classes.now} onClick={this.toggleOpen}>
           {moment(this.props.currentDate).format('DD MMM')} · Сегодня
-        </span>
-        <IconButton icon={'close'} />
+        </div>
+        <div onClick={this.changeDay(1)}>
+          <IconButton icon={'close'} />
+        </div>
         {this.getCalendar()}
       </div>
     );
   }
+
+  changeDay = sign => ev => {
+    ev.preventDefault();
+    const currentDate = this.props.currentDate;
+    const day = currentDate.getDate();
+    const newDate = currentDate.setDate(day + sign);
+    this.props.changeDate(new Date(newDate));
+  };
 
   handleDayClick = day => {
     this.props.changeDate(day);
@@ -96,12 +109,6 @@ class DateChanger extends Component {
             selectedDays={currentDate}
             onDayClick={this.handleDayClick}
           />
-
-          <p>
-            {currentDate
-              ? currentDate.toLocaleDateString()
-              : 'Please select a day 👻'}
-          </p>
         </div>
       ];
     }
