@@ -7,6 +7,7 @@ import injectSheet from 'react-jss';
 import {
   loadedSelector,
   loadingSelector,
+  roomsSelector,
   loadRoomsData
 } from '../../ducks/rooms';
 
@@ -33,7 +34,8 @@ Schedule.defaultProps = {};
 export default connect(
   state => ({
     loading: loadingSelector(state),
-    loaded: loadedSelector(state)
+    loaded: loadedSelector(state),
+    rooms: roomsSelector(state)
   }),
   { loadRoomsData }
 )(injectSheet(styles)(Schedule));
