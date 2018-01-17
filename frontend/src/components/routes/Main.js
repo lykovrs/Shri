@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DateChanger from '../DateChanger';
+import Schedule from '../Schedule';
 import injectSheet from 'react-jss';
 
 const styles = {
@@ -12,6 +13,7 @@ const MainRoute = props => {
   return (
     <div>
       <DateChanger />
+      <Schedule />
       MainRoute
     </div>
   );

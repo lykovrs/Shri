@@ -13,7 +13,7 @@ import {
   loadedSelector,
   loadingSelector,
   changeDate
-} from '../../ducks/schedule';
+} from '../../ducks/rooms';
 const styles = {
   main: {
     alignContent: 'stretch',

@@ -1,13 +1,13 @@
 import { all, put, takeEvery } from 'redux-saga/effects';
 import { appName } from '../config';
-import { Record } from 'immutable';
-
+import { Record, List } from 'immutable';
+import { request } from 'graphql-request';
 import { createSelector } from 'reselect';
 
 /**
  * Constants
  * */
-export const moduleName = 'schedule';
+export const moduleName = 'rooms';
 const prefix = `${appName}/${moduleName}`;
 
 export const LOAD_DATA_REQUEST = `${prefix}/LOAD_DATA_REQUEST`;
@@ -23,24 +23,23 @@ export const SET_DATE = `${prefix}/SET_DATE`;
 export const ReducerRecord = Record({
   currentDate: new Date(),
   loading: false,
-  loaded: false
+  loaded: false,
+  items: new List([])
 });
 
 export default function reducer(state = new ReducerRecord(), action) {
   const { type, payload } = action;
 
   switch (type) {
-    // case LOAD_DATA_START:
-    //     return state.setIn(["loading"], true);
-    // case LOAD_DATA_SUCCESS:
-    //     return (
-    //         state
-    //         // .setIn(["data"], new List(payload.data))
-    //             .setIn(["loading"], false)
-    //             .setIn(["loaded"], true)
-    //     );
-    // case LOAD_DATA_ERROR:
-    //     return state.setIn(["loading"], false).setIn(["loaded"], false);
+    case LOAD_DATA_START:
+      return state.setIn(['loading'], true);
+    case LOAD_DATA_SUCCESS:
+      return state
+        .setIn(['items'], new List(payload.rooms))
+        .setIn(['loading'], false)
+        .setIn(['loaded'], true);
+    case LOAD_DATA_ERROR:
+      return state.setIn(['loading'], false).setIn(['loaded'], false);
     case SET_DATE:
       return state.setIn(['currentDate'], payload.date);
     default:
@@ -79,16 +78,16 @@ export const currentDateSelector = createSelector(
  * */
 
 /**
- * Создает экшн для запрос данных для формирования отчетов
+ * Создает экшн для запроса данных о переговорках
  * @return {Object}         объект экшена
  */
-// export function loadData() {
-//     const action = {
-//         type: LOAD_DATA_REQUEST
-//     };
-//
-//     return action;
-// }
+export function loadRoomsData() {
+  const action = {
+    type: LOAD_DATA_REQUEST
+  };
+
+  return action;
+}
 
 /**
  * Создает экшн для смены выбранной даты
@@ -106,36 +105,31 @@ export function changeDate(date) {
 /**
  * Sagas
  * */
-export const identifyFridgeSaga = function*(action) {
-  debugger;
-  console.log('saga => ', action);
-  const { report } = action.payload;
-
+export const loadRoomSaga = function*(action) {
   yield put({
     type: LOAD_DATA_START
   });
 
-  let promise = new Promise(function(resolve) {
-    setTimeout(() => {
-      resolve(report);
-    }, 2000);
-  });
-
   try {
-    //TODO: Здесь сделать нормальную логику запроса данных
+    const query = `{
+                    rooms {
+                      id
+                      title
+                      capacity
+                      floor
+                      }
+                    }`;
 
-    // throw new Error("Ошибка получения данных");
-    const newPlanagramm = yield promise.then(result => {
-      return result;
+    const dataPromise = request('/graphqul', query);
+
+    const newData = yield dataPromise.then(data => {
+      return data;
     });
 
     yield put({
       type: LOAD_DATA_SUCCESS,
       payload: {
-        data: JSON.parse(newPlanagramm, (key, value) => {
-          if (key === 'recdate') return new Date(value);
-          return value;
-        })
+        rooms: newData.rooms
       }
     });
   } catch (error) {
@@ -147,5 +141,5 @@ export const identifyFridgeSaga = function*(action) {
 };
 
 export function* saga() {
-  yield all([takeEvery(LOAD_DATA_REQUEST, identifyFridgeSaga)]);
+  yield all([takeEvery(LOAD_DATA_REQUEST, loadRoomSaga)]);
 }
