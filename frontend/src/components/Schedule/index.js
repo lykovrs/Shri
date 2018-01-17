@@ -13,19 +13,68 @@ import {
 
 const styles = {
   main: {
-    background: '#ffc'
+    // background: "#ffc",
+  },
+  rowHeader: {
+    height: '32px',
+    background: '#E9ECEF',
+    fontSize: '11px',
+    color: '#858E98',
+    fontWeight: '600',
+    letterSpacing: '0.4px',
+    textTransform: 'uppercase',
+    padding: '16px 0 0 16px',
+    lineHeight: '11px'
+  },
+  row: {
+    border: '1px solid',
+    height: '58px'
   }
 };
 
 class Schedule extends Component {
   render() {
-    const { classes } = this.props;
-    return <div className={classes.main}>schedule</div>;
+    const { classes, rooms } = this.props;
+    let rows = new Map();
+    rooms.forEach(room => {
+      if (!rows.get(room.floor)) rows.set(room.floor, []);
+      rows.set(room.floor, [...rows.get(room.floor), room]);
+    });
+
+    let tbody = [];
+
+    for (let entry of rows) {
+      // то же что и recipeMap.entries()
+      tbody.push(
+        <div className={classes.rowHeader} key={entry}>
+          {entry[0]} Этаж
+        </div>
+      );
+      entry[1].forEach(room => {
+        tbody.push(
+          <div className={classes.row} key={room.title}>
+            {room.title}
+          </div>
+        );
+      });
+    }
+    console.log(tbody);
+    return (
+      <div className={classes.main}>
+        schedule
+        {/*{this.getHeader(3)}*/}
+        {tbody}
+      </div>
+    );
   }
 
   componentDidMount() {
     this.props.loadRoomsData();
   }
+
+  getHeader = floor => {
+    return <div>{floor}</div>;
+  };
 }
 
 Schedule.propTypes = {};
