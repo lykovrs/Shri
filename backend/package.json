@@ -8,7 +8,14 @@
   "engines": {
     "node": ">=8.4.0"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "semistandard",
     "reset-db": "rm -f ./db.sqlite3 && node create-mock-data.js",
@@ -20,6 +27,7 @@
     "graphql": "^0.11.1",
     "graphql-date": "^1.0.3",
     "graphql-tools": "^1.2.1",
+    "prettier": "^1.10.2",
     "sequelize": "^4.7.5",
     "sqlite3": "^3.1.9"
   },
