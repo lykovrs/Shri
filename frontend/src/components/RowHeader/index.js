@@ -5,8 +5,6 @@ import injectSheet from 'react-jss';
 
 const styles = {
   main: {
-    paddingTop: '5px',
-    paddingBottom: '5px',
     lineHeight: '17px',
     color: '#000'
   },

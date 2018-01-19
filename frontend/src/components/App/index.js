@@ -34,7 +34,7 @@ class App extends Component {
         <p>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <RowHeader text={'Ржавый Фред'} helperText={'3—6 человек'} />
+
         <RowHint text={'Ржавый Фред'} />
         <Chips name={'Лекс Лютер'} email={'mathews.kyle@gmail.com'} />
         <IconButton icon={'edit'} />
