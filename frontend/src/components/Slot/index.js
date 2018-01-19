@@ -6,9 +6,8 @@ import classNames from 'classnames';
 const styles = {
   main: {
     background: '#fff',
-    border: '1px solid',
-    height: '58px',
-    width: '58px',
+    height: '100%',
+    width: '100%',
     '&:active': {
       background: '#005CFF'
     }
