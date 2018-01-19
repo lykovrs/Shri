@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import Icon from '../Icon';
-import { ICONS } from '../../constants';
+import CloseIcon from '../../svg/close.svg';
 import Gravatar from 'react-gravatar';
+import ReactSVG from 'react-svg';
 
 const styles = {
   main: {
@@ -41,6 +41,10 @@ const styles = {
 
   avatar: {
     borderRadius: '16px'
+  },
+  icon: {
+    fontSize: 0,
+    padding: '5px'
   }
 };
 
@@ -50,9 +54,13 @@ const Chips = props => {
     <button className={classes.main}>
       <Gravatar size={32} email={email} className={classes.avatar} />
       <span className={classes.label}>{name}</span>
-      <span className={classes.closeBtn}>
-        <Icon icon={ICONS.CLOSE} color={'currentColor'} size={24} />
-      </span>
+      <ReactSVG
+        path={CloseIcon}
+        callback={svg => console.log(svg)}
+        className={classes.closeBtn}
+        evalScript="always"
+        wrapperClassName={classes.icon}
+      />
     </button>
   );
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import IconButton from '../IconButton';
+import ReactSVG from 'react-svg';
+import ArrowIcon from '../../svg/arrow.svg';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import MomentLocaleUtils from 'react-day-picker/moment';
@@ -19,16 +20,17 @@ const styles = {
     alignContent: 'stretch',
     alignItems: 'center',
     boxShadow: '0 1px 0 0 #E9ECEF',
-    color: '#000',
     display: 'flex',
-    fontSize: '15px',
-    fontWeight: '600',
+    fontSize: 0,
     height: '56px',
     justifyContent: 'center',
     padding: '16px',
     position: 'relative'
   },
   now: {
+    color: '#000',
+    fontSize: '15px',
+    fontWeight: '600',
     flex: '1 1 auto',
     lineHeight: '56px',
     textAlign: 'center'
@@ -54,6 +56,9 @@ const styles = {
     height: '9999px',
     width: '100%',
     background: 'rgba(0, 16, 33, 0.8)'
+  },
+  rightArrow: {
+    transform: 'rotate(180deg)'
   }
 };
 class DateChanger extends Component {
@@ -66,14 +71,24 @@ class DateChanger extends Component {
     return (
       <div className={classes.main}>
         <div onClick={this.changeDay(-1)}>
-          <IconButton icon={'close'} />
+          <ReactSVG
+            path={ArrowIcon}
+            callback={svg => console.log(svg)}
+            className="example"
+            evalScript="always"
+          />
         </div>
 
         <div className={classes.now} onClick={this.toggleOpen}>
           {moment(this.props.currentDate).format('DD MMM')} · Сегодня
         </div>
         <div onClick={this.changeDay(1)}>
-          <IconButton icon={'close'} />
+          <ReactSVG
+            path={ArrowIcon}
+            callback={svg => console.log(svg)}
+            className={classes.rightArrow}
+            evalScript="always"
+          />
         </div>
         {this.getCalendar()}
       </div>

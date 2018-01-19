@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../logo.svg';
+import logo from '../../svg/logo.svg';
 import injectSheet from 'react-jss';
 const styles = {
   main: {
