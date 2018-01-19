@@ -19,7 +19,7 @@ const styles = {
   main: {
     // background: "#ffc",
   },
-  rowHeader: {},
+
   row: {
     border: '1px solid',
     height: '58px'
@@ -38,7 +38,6 @@ class Schedule extends Component {
     let tbody = [];
 
     for (let entry of rows) {
-      // то же что и recipeMap.entries()
       tbody.push(
         <div className={classes.rowHeader} key={entry}>
           {entry[0]} Этаж
@@ -54,47 +53,54 @@ class Schedule extends Component {
     }
     console.log(tbody);
 
-    const theadRow = [<div className="theadRow__title" />];
-    for (let i = 8; i < 24; i++) {
-      theadRow.push(<div>{i}</div>);
-    }
-
-    const headerRow = [<div className="headerRow__title">Title</div>];
-    for (let i = 8; i < 24; i++) {
-      headerRow.push(<div className={classes.rowHeader} />);
-    }
-
-    const dataRow = [
-      <div className="dataRow__title">
-        <RowHeader text={'Ржавый Фред'} helperText={'3—6 человек'} />
-      </div>
-    ];
-    for (let i = 8; i < 25; i++) {
-      dataRow.push(<Slot />);
-    }
-
     return (
       <div className={classes.main}>
-        <div className="theadRow">{theadRow}</div>
-        <div className="headerRow">{headerRow}</div>
+        <div className="theadRow">{this.getHeadRow()}</div>
+        <div className="headerRow">{this.getTitleRow('Заголовок')}</div>
         <div className="dataRow">
-          {dataRow}
-          {dataRow}
-          {dataRow}
+          {this.getDataRow()}
+          {this.getDataRow()}
+          {this.getDataRow()}
         </div>
-        schedule
-        {/*{this.getHeader(3)}*/}
+
         {tbody}
       </div>
     );
   }
 
   componentDidMount() {
+    // Запрашиваем данный о переговорках
     this.props.loadRoomsData();
   }
 
-  getHeader = floor => {
-    return <div>{floor}</div>;
+  getHeadRow = () => {
+    const items = [<div className="theadRow__title" />];
+    for (let i = 8; i < 24; i++) {
+      items.push(<div>{i}</div>);
+    }
+
+    return items;
+  };
+
+  getTitleRow = text => {
+    const items = [<div className="headerRow__title">{text}</div>];
+    for (let i = 8; i < 24; i++) {
+      items.push(<div />);
+    }
+    return items;
+  };
+
+  getDataRow = () => {
+    const items = [
+      <div className="dataRow__title">
+        <RowHeader text={'Ржавый Фред'} helperText={'3—6 человек'} />
+      </div>
+    ];
+    for (let i = 8; i < 25; i++) {
+      items.push(<Slot />);
+    }
+
+    return items;
   };
 }
 
