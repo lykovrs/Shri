@@ -47,7 +47,8 @@ const styles = {
     padding: '16px',
     position: 'absolute',
     right: '0',
-    top: '100%'
+    top: '100%',
+    zIndex: 1
   },
 
   blockLayer: {

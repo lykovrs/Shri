@@ -4,12 +4,12 @@ import injectSheet from 'react-jss';
 
 const styles = {
   main: {
-    border: 'none',
     background: '#E9ECEF',
+    border: 'none',
     borderRadius: '24px',
-    padding: '5px',
-    fontSize: 0,
     color: '#AFB4B8',
+    fontSize: 0,
+    padding: '5px',
     '&:active': {
       background: '#DCDFE1',
       '& *': {
@@ -24,8 +24,6 @@ const IconButton = props => {
   return <button className={classes.main}>{children}</button>;
 };
 
-IconButton.propTypes = {
-  icon: PropTypes.string.isRequired
-};
+IconButton.propTypes = {};
 
 export default injectSheet(styles)(IconButton);

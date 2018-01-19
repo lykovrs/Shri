@@ -65,9 +65,14 @@ export const currentDateSelector = createSelector(
   state => state.currentDate
 );
 
-export const roomsSelector = createSelector(stateSelector, state =>
-  state.items.toJS()
-);
+export const roomsSelector = createSelector(stateSelector, state => {
+  let rows = new Map();
+  state.items.forEach(room => {
+    if (!rows.get(room.floor)) rows.set(room.floor, []);
+    rows.set(room.floor, [...rows.get(room.floor), room]);
+  });
+  return rows;
+});
 
 // const valueout = state[moduleName].data.map(item => {
 //     return { x: item.recdate, y: item.valueout };
