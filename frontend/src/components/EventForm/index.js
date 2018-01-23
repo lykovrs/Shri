@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
+import Button from '../Button';
 
 import {
   currentDateSelector,
@@ -31,7 +32,7 @@ const styles = {
 
   control: {
     paddingTop: '16px',
-    '& input': {
+    '& input, & select': {
       border: '2px solid #E9ECEF',
       background: '#FFFFFF',
       borderRadius: '4px',
@@ -91,7 +92,7 @@ class EventForm extends Component {
         <Form
           onSubmit={this.onSubmit}
           initialValues={{ employed: true, stooge: 'larry' }}
-          render={({ handleSubmit, reset, submitting, pristine, values }) => (
+          render={({ handleSubmit, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
               <div className={classes.control}>
                 <label className={classes.label}>Тема</label>
@@ -131,9 +132,9 @@ class EventForm extends Component {
                 </div>
               </div>
 
-              <div>
+              <div className={classes.control}>
                 <label className={classes.label}>Участники</label>
-                <Field name="favoriteColor" component="select">
+                <Field name="participant" component="select">
                   <option />
                   <option value="#ff0000">❤️ Red</option>
                   <option value="#00ff00">💚 Green</option>
@@ -142,16 +143,11 @@ class EventForm extends Component {
               </div>
 
               <div className="buttons">
-                <button type="submit" disabled={submitting || pristine}>
-                  Создать встречу
-                </button>
-                <button
-                  type="button"
-                  onClick={reset}
+                <Button
+                  type="submit"
+                  text={'Создать встречу'}
                   disabled={submitting || pristine}
-                >
-                  Сбросить
-                </button>
+                />
               </div>
               <pre>{JSON.stringify(values, 0, 2)}</pre>
             </form>

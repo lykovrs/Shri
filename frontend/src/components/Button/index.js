@@ -46,21 +46,27 @@ const styles = {
  * @constructor
  */
 const Button = props => {
-  const { classes, disabled, text, primary } = props;
+  const { classes, disabled, text, primary, type } = props;
   const wrapperClasses = classNames({
     [classes.main]: true,
     [classes.disabled]: disabled,
     [classes.primary]: primary
   });
-  return <button className={wrapperClasses}>{text}</button>;
+  return (
+    <button type={type} className={wrapperClasses}>
+      {text}
+    </button>
+  );
 };
 
 /**
  * Входные параметры
- * @type {{classes: object, disabled: boolean, primary: boolean, text: string}}
+ * @type {{classes: object, disabled: boolean, primary: boolean, text: string}, handleClick: function, type: string}
  */
 Button.propTypes = {
   classes: PropTypes.object.isRequired,
+  handleClick: PropTypes.func,
+  type: PropTypes.string,
   disabled: PropTypes.bool,
   primary: PropTypes.bool,
   text: PropTypes.string.isRequired
