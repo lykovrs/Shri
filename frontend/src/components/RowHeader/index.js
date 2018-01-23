@@ -5,16 +5,25 @@ import injectSheet from 'react-jss';
 
 const styles = {
   main: {
-    lineHeight: '17px',
-    color: '#000'
+    color: '#000',
+    cursor: 'pointer',
+    lineHeight: '15px',
+    '&:hover': {
+      color: '#0070E0'
+    },
+    '&:active': {
+      color: '#1D54FE'
+    }
   },
+
   label: {
-    fontWeight: 700,
-    fontSize: '15px'
+    fontSize: '15px',
+    fontWeight: 700
   },
   helperText: {
-    fontWeight: 400,
-    fontSize: '13px'
+    color: '#000',
+    fontSize: '13px',
+    fontWeight: 400
   },
   disabled: {
     color: '#858E98'

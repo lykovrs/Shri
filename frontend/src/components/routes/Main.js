@@ -14,7 +14,6 @@ const MainRoute = props => {
     <div>
       <DateChanger />
       <Schedule />
-      MainRoute
     </div>
   );
 };

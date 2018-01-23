@@ -13,6 +13,7 @@ const styles = {
     height: '44px',
     lineHeight: '18px',
     padding: '0 24px',
+    cursor: 'pointer',
     '&:active': {
       background: '#DDE0E4'
     }
@@ -27,6 +28,7 @@ const styles = {
   disabled: {
     background: '#E9ECEF',
     color: '#B6B6B6',
+    cursor: 'default',
     '&:active': {
       background: '#E9ECEF'
     }

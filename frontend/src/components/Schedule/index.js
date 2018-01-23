@@ -12,17 +12,89 @@ import {
 } from '../../ducks/rooms';
 import RowHeader from '../RowHeader';
 import Slot from '../Slot';
-
-import './style.css';
+import { DESCKTOP_BREAK } from '../../constants';
 
 const styles = {
   main: {
-    overflow: 'auto'
+    background: 'rgba(19, 100, 205, 0.1)',
+    overflow: 'auto',
+    paddingBottom: '24px',
+    [DESCKTOP_BREAK]: {
+      paddingBottom: '16px'
+    }
   },
 
   row: {
     border: '1px solid',
     height: '58px'
+  },
+  dataRow: {
+    display: 'grid',
+    gridAutoRows: '58px',
+    gridColumnGap: '1px',
+    gridRowGap: '2px',
+    gridTemplateColumns: 'repeat(20, 58px)',
+
+    '& > div': {
+      background: '#ffffff'
+    }
+  },
+  dataRow__title: {
+    gridColumnStart: '1',
+    gridColumnEnd: '4',
+    padding: '16px',
+    [DESCKTOP_BREAK]: {
+      padding: '16px 24px'
+    }
+  },
+  headerRow: {
+    display: 'grid',
+    gridAutoRows: '38px',
+    gridTemplateColumns: 'repeat(20, 58px)',
+    background: 'rgba(19, 100, 205, 0.1)',
+    gridColumnGap: '1px',
+    gridRowGap: '1px',
+
+    '& > div': {
+      backgroundColor: '#e9ecef',
+      fontWeight: '600',
+      fontSize: '11px',
+      padding: '16px 0 0 16px',
+      color: '#858e98',
+      textTransform: 'uppercase',
+      lineHeight: '16px',
+      letterSpacing: '0.4px',
+
+      [DESCKTOP_BREAK]: {
+        padding: '16px 0 0 24px'
+      }
+    }
+  },
+
+  headerRow__title: {
+    gridColumnStart: '1',
+    gridColumnEnd: '5'
+  },
+  theadRow: {
+    background: '#ffffff',
+    boxShadow: 'inset 0 1px 0 0 #e9ecef',
+    display: 'grid',
+    fontSize: '11px',
+    fontWeight: '600',
+    gridAutoRows: '32px',
+    gridColumnGap: '1px',
+    gridRowGap: '1px',
+    gridTemplateColumns: 'repeat(20, 58px)',
+    lineHeight: '32px',
+    textAlign: 'center',
+
+    '& > div': {
+      transform: 'translate(-50%, 0)'
+    }
+  },
+  theadRow__title: {
+    gridColumnStart: '1',
+    gridColumnEnd: '5'
   }
 };
 
@@ -36,14 +108,14 @@ class Schedule extends Component {
     for (let entry of rooms) {
       // ключ - это номер этажа
       tbody.push(
-        <div key={entry[0]} className="headerRow">
+        <div key={entry[0]} className={classes.headerRow}>
           {this.getTitleRow(entry[0])}
         </div>
       );
 
       // значение - переговорка
       tbody.push(
-        <div key={entry[1]} className="dataRow">
+        <div key={entry[1]} className={classes.dataRow}>
           {entry[1].map((room, key) => this.getDataRow(room.title, key))}
         </div>
       );
@@ -51,7 +123,7 @@ class Schedule extends Component {
 
     return (
       <div className={classes.main}>
-        <div className="theadRow">{this.getHeadRow()}</div>
+        <div className={classes.theadRow}>{this.getHeadRow()}</div>
         {tbody}
       </div>
     );
@@ -63,7 +135,8 @@ class Schedule extends Component {
   }
 
   getHeadRow = () => {
-    const items = [<div key={7} className="theadRow__title" />];
+    const { classes } = this.props;
+    const items = [<div key={7} className={classes.theadRow__title} />];
     for (let i = 8; i < 24; i++) {
       items.push(<div key={i}>{i}</div>);
     }
@@ -72,11 +145,13 @@ class Schedule extends Component {
   };
 
   getTitleRow = text => {
+    const { classes } = this.props;
     const items = [
-      <div key={text} className="headerRow__title">
-        {text}
+      <div key={text} className={classes.headerRow__title}>
+        {text} этаж
       </div>
     ];
+
     for (let i = 8; i < 24; i++) {
       items.push(<div key={i} />);
     }
@@ -84,8 +159,9 @@ class Schedule extends Component {
   };
 
   getDataRow = (title, key) => {
+    const { classes } = this.props;
     const items = [
-      <div key={key} className="dataRow__title">
+      <div key={key} className={classes.dataRow__title}>
         <RowHeader text={title} helperText={'3—6 человек'} />
       </div>
     ];

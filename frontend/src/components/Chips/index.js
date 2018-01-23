@@ -8,6 +8,7 @@ import ReactSVG from 'react-svg';
 const styles = {
   main: {
     border: 'none',
+    cursor: 'pointer',
     padding: 0,
     alignItems: 'center',
     background: '#E9ECEF',

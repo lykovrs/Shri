@@ -33,26 +33,34 @@ class App extends Component {
           <Route path="/show" component={ShowRoute} />
         </Switch>
 
-        <p>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {/*<p>*/}
+        {/*To get started, edit <code>src/App.js</code> and save to reload.*/}
+        {/*</p>*/}
 
-        <RowHint text={'Ржавый Фред'} />
-        <Chips name={'Лекс Лютер'} email={'mathews.kyle@gmail.com'} />
-        <IconButton>
-          <ReactSVG
-            path={CloseIcon}
-            callback={svg => console.log(svg)}
-            evalScript="always"
-          />
-        </IconButton>
-        <Slot disabled={true} />
-        <Slot />
-        <Button text={'Создать встречу'} primary={true} />
-        <Button text={'Создать встречу'} primary={true} disabled={true} />
-        <Button text={'Отмена'} />
-        <Button text={'Отмена'} disabled={true} />
-        <Combobox />
+        {/*<RowHint text={'Ржавый Фред'} />*/}
+        {/*<Chips name={'Лекс Лютер'} email={'mathews.kyle@gmail.com'} />*/}
+        {/*<IconButton>*/}
+        {/*<ReactSVG*/}
+        {/*path={CloseIcon}*/}
+        {/*callback={svg => console.log(svg)}*/}
+        {/*evalScript="always"*/}
+        {/*/>*/}
+        {/*</IconButton>*/}
+
+        {/*<IconButton size={'big'}>*/}
+        {/*<ReactSVG*/}
+        {/*path={CloseIcon}*/}
+        {/*callback={svg => console.log(svg)}*/}
+        {/*evalScript="always"*/}
+        {/*/>*/}
+        {/*</IconButton>*/}
+        {/*<Slot disabled={true} />*/}
+        {/*<Slot />*/}
+        {/*<Button text={'Создать встречу'} primary={true} />*/}
+        {/*<Button text={'Создать встречу'} primary={true} disabled={true} />*/}
+        {/*<Button text={'Отмена'} />*/}
+        {/*<Button text={'Отмена'} disabled={true} />*/}
+        {/*<Combobox />*/}
       </div>
     );
   }

@@ -6,6 +6,7 @@ import classNames from 'classnames';
 const styles = {
   main: {
     background: '#fff',
+    cursor: 'pointer',
     height: '100%',
     width: '100%',
     '&:active': {
