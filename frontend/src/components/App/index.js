@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import MainRoute from '../routes/Main';
 import WriteRoute from '../routes/Write';
-import CreateRoute from '../routes/Create';
 import PropTypes from 'prop-types';
 import Header from '../Header';
 import injectSheet from 'react-jss';
@@ -32,8 +31,8 @@ const App = props => {
       <Header />
       <Switch>
         <Route exact path="/" component={MainRoute} />
+        <Route path="/create" component={WriteRoute} />
         <Route path="/write" component={WriteRoute} />
-        <Route path="/create" component={CreateRoute} />
       </Switch>
     </div>
   );

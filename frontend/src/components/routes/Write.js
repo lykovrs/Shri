@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
+import EventForm from '../EventForm';
 
 /**
  * Стили JSS
@@ -14,7 +15,7 @@ const styles = {
  * Роут просмотра записи
  */
 const WriteRoute = props => {
-  return <div>WriteRoute</div>;
+  return <EventForm />;
 };
 
 /**
