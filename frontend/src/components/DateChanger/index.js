@@ -183,7 +183,6 @@ class DateChanger extends Component {
           <DayPicker
             localeUtils={MomentLocaleUtils}
             locale={'ru'}
-            selectedDays={currentDate}
             onDayClick={this.handleDayClick}
           />
         </div>
