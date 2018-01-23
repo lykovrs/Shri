@@ -3,18 +3,22 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 
+/**
+ * Стили JSS
+ * @type {{main: {borderRadius: string, boxShadow: string, color: string, display: string, lineHeight: string, padding: string}, label: {fontSize: string, fontWeight: number}, disabled: {color: string}}}
+ */
 const styles = {
   main: {
-    padding: '0 8px',
-    lineHeight: '24px',
-    color: '#262626',
     borderRadius: '4px',
     boxShadow: '0 1px 8px 0 rgba(0,44,92,0.28)',
-    display: 'inline-block'
+    color: '#262626',
+    display: 'inline-block',
+    lineHeight: '24px',
+    padding: '0 8px'
   },
   label: {
-    fontWeight: 700,
-    fontSize: '11px'
+    fontSize: '11px',
+    fontWeight: 700
   },
 
   disabled: {
@@ -22,6 +26,9 @@ const styles = {
   }
 };
 
+/**
+ * Компонент тултип-подсказка
+ */
 const RowHint = props => {
   const { classes, text, disabled } = props;
   const wrapperClasses = classNames({
@@ -35,6 +42,10 @@ const RowHint = props => {
   );
 };
 
+/**
+ * Входные параметры
+ * @type {{text: string, disabled: boolean}}
+ */
 RowHint.propTypes = {
   text: PropTypes.string.isRequired,
   disabled: PropTypes.bool

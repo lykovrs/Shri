@@ -3,6 +3,10 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 
+/**
+ * Стили JSS
+ * @type {{main: {color: string, cursor: string, lineHeight: string, "&:hover": {color: string}, "&:active": {color: string}}, label: {fontSize: string, fontWeight: number}, helperText: {color: string, fontSize: string, fontWeight: number}, disabled: {color: string}}}
+ */
 const styles = {
   main: {
     color: '#000',
@@ -30,6 +34,9 @@ const styles = {
   }
 };
 
+/**
+ * Компонент шапки строки таблицы
+ */
 const RowHeader = props => {
   const { classes, text, helperText, disabled } = props;
   const wrapperClasses = classNames({
@@ -44,6 +51,10 @@ const RowHeader = props => {
   );
 };
 
+/**
+ * Входные параметры
+ * @type {{text: string, helperText: string, disabled: boolean}}
+ */
 RowHeader.propTypes = {
   text: PropTypes.string.isRequired,
   helperText: PropTypes.string,

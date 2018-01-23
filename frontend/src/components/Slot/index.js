@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import classNames from 'classnames';
 
+/**
+ * Стили JSS
+ * @type {{main: {background: string, cursor: string, height: string, width: string, "&:active": {background: string}}, disabled: {background: string, "&:active": {background: string}}}}
+ */
 const styles = {
   main: {
     background: '#fff',
@@ -20,6 +24,13 @@ const styles = {
     }
   }
 };
+
+/**
+ * Компонент содержимого ячейки
+ * @param props
+ * @returns {ReactElement} разметка React
+ * @constructor
+ */
 const Slot = props => {
   const { classes, disabled } = props;
   const wrapperClasses = classNames({
@@ -29,7 +40,12 @@ const Slot = props => {
   return <div className={wrapperClasses} />;
 };
 
+/**
+ * Входные параметры
+ * @type {{classes: object, disabled: boolean}}
+ */
 Slot.propTypes = {
+  classes: PropTypes.object.isRequired,
   disabled: PropTypes.bool
 };
 

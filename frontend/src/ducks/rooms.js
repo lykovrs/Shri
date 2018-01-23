@@ -21,7 +21,7 @@ export const SET_DATE = `${prefix}/SET_DATE`;
  * Reducer
  * */
 export const ReducerRecord = Record({
-  currentDate: new Date(),
+  currentDate: new Date().setHours(0, 0, 0, 0),
   loading: false,
   loaded: false,
   items: new List([])
@@ -73,14 +73,6 @@ export const roomsSelector = createSelector(stateSelector, state => {
   });
   return rows;
 });
-
-// const valueout = state[moduleName].data.map(item => {
-//     return { x: item.recdate, y: item.valueout };
-// });
-//
-// const valuein = state[moduleName].data.map(item => {
-//     return { x: item.recdate, y: item.valuein };
-// });
 
 /**
  * Action Creators

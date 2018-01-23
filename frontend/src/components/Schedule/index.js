@@ -14,6 +14,10 @@ import RowHeader from '../RowHeader';
 import Slot from '../Slot';
 import { DESCKTOP_BREAK } from '../../constants';
 
+/**
+ * Стили JSS
+ * @type {{main: {background: string, overflow: string, paddingBottom: string}, row: {border: string, height: string}, dataRow: {display: string, gridAutoRows: string, gridColumnGap: string, gridRowGap: string, gridTemplateColumns: string, "& > div": {background: string}}, conversationHeader: {gridColumnStart: string, gridColumnEnd: string, padding: string}, headerRow: {display: string, gridAutoRows: string, gridTemplateColumns: string, background: string, gridColumnGap: string, gridRowGap: string, "& > div": {backgroundColor: string, fontWeight: string, fontSize: string, padding: string, color: string, textTransform: string, lineHeight: string, letterSpacing: string}}, stageRow: {gridColumnStart: string, gridColumnEnd: string}, theadRow: {background: string, boxShadow: string, display: string, fontSize: string, fontWeight: string, gridAutoRows: string, gridColumnGap: string, gridRowGap: string, gridTemplateColumns: string, lineHeight: string, textAlign: string, "& > div": {transform: string}}, stageRowTitle: {gridColumnStart: string, gridColumnEnd: string}}}
+ */
 const styles = {
   main: {
     background: 'rgba(19, 100, 205, 0.1)',
@@ -39,10 +43,11 @@ const styles = {
       background: '#ffffff'
     }
   },
-  dataRow__title: {
+  conversationHeader: {
     gridColumnStart: '1',
     gridColumnEnd: '4',
     padding: '16px',
+
     [DESCKTOP_BREAK]: {
       padding: '16px 24px'
     }
@@ -71,7 +76,7 @@ const styles = {
     }
   },
 
-  headerRow__title: {
+  stageRow: {
     gridColumnStart: '1',
     gridColumnEnd: '5'
   },
@@ -92,13 +97,21 @@ const styles = {
       transform: 'translate(-50%, 0)'
     }
   },
-  theadRow__title: {
+  stageRowTitle: {
     gridColumnStart: '1',
     gridColumnEnd: '5'
   }
 };
 
+/**
+ * Компонент главной таблицы тайминга
+ * @extends Component
+ */
 class Schedule extends Component {
+  /**
+   * render
+   * @return {ReactElement} разметка React
+   */
   render() {
     const { classes, rooms } = this.props;
 
@@ -109,14 +122,14 @@ class Schedule extends Component {
       // ключ - это номер этажа
       tbody.push(
         <div key={entry[0]} className={classes.headerRow}>
-          {this.getTitleRow(entry[0])}
+          {this.getStageRow(entry[0])}
         </div>
       );
 
       // значение - переговорка
       tbody.push(
         <div key={entry[1]} className={classes.dataRow}>
-          {entry[1].map((room, key) => this.getDataRow(room.title, key))}
+          {entry[1].map((room, key) => this.getConversationTd(room.title, key))}
         </div>
       );
     }
@@ -129,14 +142,21 @@ class Schedule extends Component {
     );
   }
 
+  /**
+   *  Метод жц компонента
+   */
   componentDidMount() {
     // Запрашиваем данный о переговорках
     this.props.loadRoomsData();
   }
 
+  /**
+   * Рендерит шапку таблицы с указателями времни
+   * @returns {ReactElement[]}
+   */
   getHeadRow = () => {
     const { classes } = this.props;
-    const items = [<div key={7} className={classes.theadRow__title} />];
+    const items = [<div key={7} className={classes.stageRowTitle} />];
     for (let i = 8; i < 24; i++) {
       items.push(<div key={i}>{i}</div>);
     }
@@ -144,10 +164,15 @@ class Schedule extends Component {
     return items;
   };
 
-  getTitleRow = text => {
+  /**
+   * Рендерит указатель этажности
+   * @param text
+   * @returns {ReactElement[]}
+   */
+  getStageRow = text => {
     const { classes } = this.props;
     const items = [
-      <div key={text} className={classes.headerRow__title}>
+      <div key={text} className={classes.stageRow}>
         {text} этаж
       </div>
     ];
@@ -158,10 +183,16 @@ class Schedule extends Component {
     return items;
   };
 
-  getDataRow = (title, key) => {
+  /**
+   * Рендерит ячейки для строк с данными переговорок
+   * @param title
+   * @param key
+   * @returns {ReactElement[]}
+   */
+  getConversationTd = (title, key) => {
     const { classes } = this.props;
     const items = [
-      <div key={key} className={classes.dataRow__title}>
+      <div key={key} className={classes.conversationHeader}>
         <RowHeader text={title} helperText={'3—6 человек'} />
       </div>
     ];
@@ -173,8 +204,9 @@ class Schedule extends Component {
   };
 }
 
-Schedule.propTypes = {};
-Schedule.defaultProps = {};
+Schedule.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default connect(
   state => ({

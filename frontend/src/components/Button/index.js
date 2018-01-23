@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import classNames from 'classnames';
 
+/**
+ * Стили JSS
+ * @type {{main: {border: string, background: string, borderRadius: string, fontSize: string, fontWeight: number, height: string, lineHeight: string, padding: string, cursor: string, "&:active": {background: string}}, primary: {background: string, color: string, "&:active": {background: string}}, disabled: {background: string, color: string, cursor: string, "&:active": {background: string}}}}
+ */
 const styles = {
   main: {
     border: 'none',
@@ -34,6 +38,13 @@ const styles = {
     }
   }
 };
+
+/**
+ * Компонент базовой кнопки
+ * @param props
+ * @returns {ReactElement} разметка React
+ * @constructor
+ */
 const Button = props => {
   const { classes, disabled, text, primary } = props;
   const wrapperClasses = classNames({
@@ -44,10 +55,15 @@ const Button = props => {
   return <button className={wrapperClasses}>{text}</button>;
 };
 
+/**
+ * Входные параметры
+ * @type {{classes: object, disabled: boolean, primary: boolean, text: string}}
+ */
 Button.propTypes = {
-  text: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
-  primary: PropTypes.bool
+  primary: PropTypes.bool,
+  text: PropTypes.string.isRequired
 };
 
 export default injectSheet(styles)(Button);

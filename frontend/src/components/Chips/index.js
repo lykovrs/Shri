@@ -5,6 +5,10 @@ import CloseIcon from '../../svg/close.svg';
 import Gravatar from 'react-gravatar';
 import ReactSVG from 'react-svg';
 
+/**
+ * Стили JSS
+ * @type {{main: {border: string, cursor: string, padding: number, alignItems: string, background: string, borderRadius: string, color: string, display: string, height: string, overflow: string, verticalAlign: string, "&:active": {background: string, "& *": {color: string}}}, label: {lineHeight: string, fontSize: string, padding: string}, disabled: {color: string}, closeBtn: {background: string, color: string, paddingRight: string}, avatar: {borderRadius: string}, icon: {fontSize: number, padding: string}}}
+ */
 const styles = {
   main: {
     border: 'none',
@@ -49,6 +53,12 @@ const styles = {
   }
 };
 
+/**
+ * Компонент Chips
+ * @param props
+ * @returns {ReactElement} разметка React
+ * @constructor
+ */
 const Chips = props => {
   const { classes, email, name } = props;
   return (
@@ -57,7 +67,6 @@ const Chips = props => {
       <span className={classes.label}>{name}</span>
       <ReactSVG
         path={CloseIcon}
-        callback={svg => console.log(svg)}
         className={classes.closeBtn}
         evalScript="always"
         wrapperClassName={classes.icon}
@@ -66,9 +75,14 @@ const Chips = props => {
   );
 };
 
+/**
+ * Входные параметры
+ * @type {{classes: object, email: string, name: string}}
+ */
 Chips.propTypes = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string
+  classes: PropTypes.object.isRequired,
+  email: PropTypes.string,
+  name: PropTypes.string.isRequired
 };
 
 export default injectSheet(styles)(Chips);

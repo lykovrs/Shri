@@ -3,6 +3,12 @@ import logo from '../../svg/logo.svg';
 import injectSheet from 'react-jss';
 import Button from '../Button';
 import { DESCKTOP_BREAK } from '../../constants';
+import PropTypes from 'prop-types';
+
+/**
+ * Стили JSS
+ * @type {{main: {alignItems: string, border: string, boxShadow: string, display: string, height: string, padding: string}, create: {display: string}, logo: {}}}
+ */
 const styles = {
   main: {
     alignItems: 'center',
@@ -26,6 +32,12 @@ const styles = {
   logo: {}
 };
 
+/**
+ * Компонент шапки с логотипом
+ * @param props
+ * @returns {ReactElement} разметка React
+ * @constructor
+ */
 const Header = props => {
   const { classes } = props;
   return (
@@ -36,6 +48,14 @@ const Header = props => {
       </div>
     </header>
   );
+};
+
+/**
+ * Входные параметры
+ * @type {{classes: object}}
+ */
+Header.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
 export default injectSheet(styles)(Header);

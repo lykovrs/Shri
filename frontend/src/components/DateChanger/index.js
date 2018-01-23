@@ -18,6 +18,11 @@ import {
   loadingSelector,
   changeDate
 } from '../../ducks/rooms';
+
+/**
+ * Стили JSS
+ * @type {{main: {alignContent: string, alignItems: string, boxShadow: string, display: string, fontSize: number, height: string, justifyContent: string, padding: string, position: string}, now: {cursor: string, color: string, flex: string, fontSize: string, fontWeight: string, lineHeight: string, textAlign: string, "&:hover": {color: string}, "&:active": {color: string}}, isOpen: {color: string}, calendarWrapper: {alignItems: string, background: string, borderRadius: string, boxShadow: string, display: string, fontSize: string, height: string, justifyContent: string, left: string, padding: string, position: string, right: string, top: string, zIndex: number}, blockLayer: {background: string, height: string, position: string, top: string, width: string}, rightArrow: {transform: string}}}
+ */
 const styles = {
   main: {
     alignContent: 'stretch',
@@ -96,11 +101,20 @@ const styles = {
     transform: 'rotate(180deg)'
   }
 };
+
+/**
+ * Компонент выбора даты
+ * @extends Component
+ */
 class DateChanger extends Component {
   state = {
     isOpen: false
   };
 
+  /**
+   * render
+   * @return {ReactElement} разметка React
+   */
   render() {
     const { classes } = this.props;
     const nowClasses = classNames({
@@ -109,22 +123,19 @@ class DateChanger extends Component {
     });
     return (
       <div className={classes.main}>
-        <IconButton size={'big'} onClick={this.changeDay(-1)}>
-          <ReactSVG
-            path={ArrowIcon}
-            callback={svg => console.log(svg)}
-            className="example"
-            evalScript="always"
-          />
+        <IconButton size={'big'} handleClick={this.changeDay(-1)}>
+          <ReactSVG path={ArrowIcon} className="example" evalScript="always" />
         </IconButton>
 
         <div className={nowClasses} onClick={this.toggleOpen}>
-          {moment(this.props.currentDate).format('DD MMM')} · Сегодня
+          {moment(this.props.currentDate).format('DD MMM')}{' '}
+          {+new Date().setHours(0, 0, 0, 0) === +this.props.currentDate
+            ? '· Сегодня'
+            : null}
         </div>
-        <IconButton size={'big'} onClick={this.changeDay(1)}>
+        <IconButton size={'big'} handleClick={this.changeDay(1)}>
           <ReactSVG
             path={ArrowIcon}
-            callback={svg => console.log(svg)}
             className={classes.rightArrow}
             evalScript="always"
           />
@@ -134,19 +145,31 @@ class DateChanger extends Component {
     );
   }
 
+  /**
+   * Меняет день на значение аргумента
+   * @param sign целое число
+   * @returns {function(*)} карринг значения
+   */
   changeDay = sign => ev => {
-    // ev.preventDefault();
     const currentDate = this.props.currentDate;
-    const day = currentDate.getDate();
-    const newDate = currentDate.setDate(day + sign);
+    const day = new Date(currentDate).getDate();
+    const newDate = new Date(currentDate).setDate(day + sign);
     this.props.changeDate(new Date(newDate));
   };
 
+  /**
+   * Обрабатывает клик по дню в календаре
+   * @param day
+   */
   handleDayClick = day => {
     this.props.changeDate(day);
     this.toggleOpen();
   };
 
+  /**
+   * Генерирует календарь
+   * @returns {ReactElement} разметка React
+   */
   getCalendar = () => {
     const { classes, currentDate } = this.props;
     if (this.state.isOpen) {
@@ -169,6 +192,9 @@ class DateChanger extends Component {
     return null;
   };
 
+  /**
+   * Открывает/закрывает календарь
+   */
   toggleOpen = () => {
     this.setState({
       isOpen: !this.state.isOpen
@@ -176,8 +202,13 @@ class DateChanger extends Component {
   };
 }
 
-DateChanger.propTypes = {};
-DateChanger.defaultProps = {};
+/**
+ * Входные параметры
+ * @type {{classes: object, loading: boolean, loaded: boolean, currentDate: Date}}
+ */
+DateChanger.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default connect(
   state => ({
