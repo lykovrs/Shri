@@ -4,6 +4,7 @@ import injectSheet from 'react-jss';
 import Button from '../Button';
 import { DESCKTOP_BREAK } from '../../constants';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 /**
  * Стили JSS
@@ -44,7 +45,9 @@ const Header = props => {
     <header className={classes.main}>
       <img className={classes.logo} src={logo} alt="yandex logo" />
       <div className={classes.create}>
-        <Button text={'Создать встречу'} primary={true} />
+        <Link to="/create">
+          <Button text={'Создать встречу'} primary={true} />
+        </Link>
       </div>
     </header>
   );

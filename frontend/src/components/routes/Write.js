@@ -11,17 +11,17 @@ const styles = {
 };
 
 /**
- * Роут просмотра/редактирования записи
+ * Роут просмотра записи
  */
-const ShowRoute = props => {
-  return <div>ShowRoute</div>;
+const WriteRoute = props => {
+  return <div>WriteRoute</div>;
 };
 
 /**
  * Входные параметры
  * @type {{classes: object}}
  */
-ShowRoute.propTypes = {
+WriteRoute.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default injectSheet(styles)(ShowRoute);
+export default injectSheet(styles)(WriteRoute);

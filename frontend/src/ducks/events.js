@@ -3,6 +3,7 @@ import { appName } from '../config';
 import { Record, List } from 'immutable';
 import { request } from 'graphql-request';
 import { createSelector } from 'reselect';
+import history from '../redux/history';
 
 /**
  * Constants
@@ -41,8 +42,8 @@ export default function reducer(state = new ReducerRecord(), action) {
         .setIn(['loaded'], true);
     case LOAD_DATA_ERROR:
       return state.setIn(['loading'], false).setIn(['loaded'], false);
-    // case SET_DATE:
-    // return state.setIn(['currentDate'], payload.date);
+    case CREATE_EVENT:
+      return state;
     default:
       return state;
   }
@@ -127,6 +128,8 @@ export function deleteEvent(eventId) {
 /**
  * Sagas
  * */
+export const createEventSaga = function(action) {};
+
 export const loadEventsSaga = function*(action) {
   yield put({
     type: LOAD_DATA_START
@@ -169,5 +172,8 @@ export const loadEventsSaga = function*(action) {
 };
 
 export function* saga() {
-  yield all([takeEvery(LOAD_DATA_REQUEST, loadEventsSaga)]);
+  yield all([
+    takeEvery(LOAD_DATA_REQUEST, loadEventsSaga),
+    takeEvery(CREATE_EVENT, createEventSaga)
+  ]);
 }
