@@ -8,7 +8,7 @@ import history from '../redux/history';
 /**
  * Constants
  * */
-export const moduleName = 'events';
+export const moduleName = 'users';
 const prefix = `${appName}/${moduleName}`;
 
 export const LOAD_DATA_REQUEST = `${prefix}/LOAD_DATA_REQUEST`;
@@ -16,9 +16,9 @@ export const LOAD_DATA_START = `${prefix}/LOAD_DATA_START`;
 export const LOAD_DATA_SUCCESS = `${prefix}/LOAD_DATA_SUCCESS`;
 export const LOAD_DATA_ERROR = `${prefix}/LOAD_DATA_ERROR`;
 
-export const CREATE_EVENT = `${prefix}/CREATE_EVENT`;
-export const MODIFY_EVENT = `${prefix}/MODIFY_EVENT`;
-export const DELETE_EVENT = `${prefix}/DELETE_EVENT`;
+export const CREATE_USER = `${prefix}/CREATE_USER`;
+export const MODIFY_USER = `${prefix}/MODIFY_USER`;
+export const DELETE_USER = `${prefix}/DELETE_USER`;
 
 /**
  * Reducer
@@ -37,12 +37,12 @@ export default function reducer(state = new ReducerRecord(), action) {
       return state.setIn(['loading'], true);
     case LOAD_DATA_SUCCESS:
       return state
-        .setIn(['items'], new List(payload.events))
+        .setIn(['items'], new List(payload.users))
         .setIn(['loading'], false)
         .setIn(['loaded'], true);
     case LOAD_DATA_ERROR:
       return state.setIn(['loading'], false).setIn(['loaded'], false);
-    case CREATE_EVENT:
+    case CREATE_USER:
       return state;
     default:
       return state;
@@ -62,7 +62,7 @@ export const loadedSelector = createSelector(
   state => state.loaded
 );
 
-export const eventsSelector = createSelector(stateSelector, state =>
+export const usersSelector = createSelector(stateSelector, state =>
   state.items.toJS()
 );
 
@@ -71,10 +71,10 @@ export const eventsSelector = createSelector(stateSelector, state =>
  * */
 
 /**
- * Создает экшн для запроса данных о событиях
+ * Создает экшн для запроса данных о пользователях
  * @return {Object}         объект экшена
  */
-export function loadEventsData() {
+export function loadUsersData() {
   const action = {
     type: LOAD_DATA_REQUEST
   };
@@ -83,14 +83,14 @@ export function loadEventsData() {
 }
 
 /**
- * Создает экшн для создания события
- * @param event
- * @returns {{type: string, payload: {event: *}}} объект экшена
+ * Создает экшн для создания нового пользователя
+ * @param user
+ * @returns {{type: string, payload: {user: *}}} объект экшена
  */
-export function createEvent(event) {
+export function createUser(user) {
   const action = {
-    type: CREATE_EVENT,
-    payload: { event }
+    type: CREATE_USER,
+    payload: { user }
   };
 
   return action;
@@ -98,13 +98,13 @@ export function createEvent(event) {
 
 /**
  * Создает экшн для редактирования события
- * @param event
- * @returns {{type: string, payload: {event: *}}} объект экшена
+ * @param user
+ * @returns {{type: string, payload: {user: *}}} объект экшена
  */
-export function modifyEvent(event) {
+export function modifyUser(user) {
   const action = {
-    type: MODIFY_EVENT,
-    payload: { event }
+    type: MODIFY_USER,
+    payload: { user }
   };
 
   return action;
@@ -112,13 +112,13 @@ export function modifyEvent(event) {
 
 /**
  * Создает экшн для удаления события
- * @param eventId
- * @returns {{type: string, payload: {event: *}}} объект экшена
+ * @param userId
+ * @returns {{type: string, payload: {user: *}}} объект экшена
  */
-export function deleteEvent(eventId) {
+export function deleteUser(userId) {
   const action = {
-    type: DELETE_EVENT,
-    payload: { eventId }
+    type: DELETE_USER,
+    payload: { userId }
   };
 
   return action;
@@ -127,26 +127,20 @@ export function deleteEvent(eventId) {
 /**
  * Sagas
  * */
-export const createEventSaga = function(action) {};
+export const createUserSaga = function(action) {};
 
-export const loadEventsSaga = function*(action) {
+export const loadUsersSaga = function*(action) {
   yield put({
     type: LOAD_DATA_START
   });
 
   try {
     const query = `{
-                    events {
+                    users{
                         id
-                        title
-                        dateStart
-                        dateEnd
-                        users {
-                          id
-                        }
-                        room {
-                          id
-                        }
+                        login
+                        homeFloor
+                        avatarUrl
                       }
                     }`;
 
@@ -159,7 +153,7 @@ export const loadEventsSaga = function*(action) {
     yield put({
       type: LOAD_DATA_SUCCESS,
       payload: {
-        events: newData.events
+        users: newData.users
       }
     });
   } catch (error) {
@@ -172,7 +166,7 @@ export const loadEventsSaga = function*(action) {
 
 export function* saga() {
   yield all([
-    takeEvery(LOAD_DATA_REQUEST, loadEventsSaga),
-    takeEvery(CREATE_EVENT, createEventSaga)
+    takeEvery(LOAD_DATA_REQUEST, loadUsersSaga),
+    takeEvery(CREATE_USER, createUserSaga)
   ]);
 }

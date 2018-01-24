@@ -10,6 +10,7 @@ import {
   roomsSelector,
   loadRoomsData
 } from '../../ducks/rooms';
+import { eventsSelector, loadEventsData } from '../../ducks/events';
 import RowHeader from '../RowHeader';
 import Slot from '../Slot';
 import { DESCKTOP_BREAK } from '../../constants';
@@ -113,7 +114,7 @@ class Schedule extends Component {
    * @return {ReactElement} разметка React
    */
   render() {
-    const { classes, rooms } = this.props;
+    const { classes, rooms, events } = this.props;
 
     let tbody = [];
 
@@ -138,6 +139,13 @@ class Schedule extends Component {
       <div className={classes.main}>
         <div className={classes.theadRow}>{this.getHeadRow()}</div>
         {tbody}
+
+        {events.map(event => (
+          <div key={event.id}>
+            {event.title} <br />
+            Начало: {event.dateStart} <br /> Конец: {event.dateEnd}
+          </div>
+        ))}
       </div>
     );
   }
@@ -146,8 +154,10 @@ class Schedule extends Component {
    *  Метод жц компонента
    */
   componentDidMount() {
-    // Запрашиваем данный о переговорках
+    // Запрашиваем данные о переговорках
     this.props.loadRoomsData();
+    // Запрашиваеми данные о событиях
+    this.props.loadEventsData();
   }
 
   /**
@@ -212,7 +222,8 @@ export default connect(
   state => ({
     loading: loadingSelector(state),
     loaded: loadedSelector(state),
-    rooms: roomsSelector(state)
+    rooms: roomsSelector(state),
+    events: eventsSelector(state)
   }),
-  { loadRoomsData }
+  { loadRoomsData, loadEventsData }
 )(injectSheet(styles)(Schedule));

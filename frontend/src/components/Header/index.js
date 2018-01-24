@@ -43,7 +43,10 @@ const Header = props => {
   const { classes } = props;
   return (
     <header className={classes.main}>
-      <img className={classes.logo} src={logo} alt="yandex logo" />
+      <Link to="/">
+        <img className={classes.logo} src={logo} alt="yandex logo" />
+      </Link>
+
       <div className={classes.create}>
         <Link to="/create">
           <Button text={'Создать встречу'} primary={true} />

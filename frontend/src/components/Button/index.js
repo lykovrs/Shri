@@ -53,7 +53,7 @@ const Button = props => {
     [classes.primary]: primary
   });
   return (
-    <button type={type} className={wrapperClasses}>
+    <button type={type} disabled={disabled} className={wrapperClasses}>
       {text}
     </button>
   );
