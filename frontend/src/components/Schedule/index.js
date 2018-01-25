@@ -10,7 +10,11 @@ import {
   roomsSelector,
   loadRoomsData
 } from '../../ducks/rooms';
-import { eventsSelector, loadEventsData } from '../../ducks/events';
+import {
+  eventsSelector,
+  loadEventsData,
+  modifyEvent
+} from '../../ducks/events';
 import RowHeader from '../RowHeader';
 import Slot from '../Slot';
 import { DESCKTOP_BREAK } from '../../constants';
@@ -141,7 +145,7 @@ class Schedule extends Component {
         {tbody}
 
         {events.map(event => (
-          <div key={event.id}>
+          <div key={event.id} onClick={this.modifyEvent(event.id)}>
             {event.title} <br />
             Начало: {event.dateStart} <br /> Конец: {event.dateEnd}
           </div>
@@ -159,6 +163,16 @@ class Schedule extends Component {
     // Запрашиваеми данные о событиях
     this.props.loadEventsData();
   }
+
+  /**
+   * Редактирование события
+   * @param id - идентификатор события
+   * @returns {function(*)}
+   */
+  modifyEvent = id => ev => {
+    ev.preventDefault();
+    this.props.modifyEvent(id);
+  };
 
   /**
    * Рендерит шапку таблицы с указателями времни
@@ -225,5 +239,5 @@ export default connect(
     rooms: roomsSelector(state),
     events: eventsSelector(state)
   }),
-  { loadRoomsData, loadEventsData }
+  { loadRoomsData, loadEventsData, modifyEvent }
 )(injectSheet(styles)(Schedule));

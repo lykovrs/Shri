@@ -13,6 +13,7 @@ import {
   changeDate
 } from '../../ducks/rooms';
 import { usersSelector, loadUsersData } from '../../ducks/users';
+import { createEvent } from '../../ducks/events';
 
 /**
  * Стили JSS
@@ -248,6 +249,7 @@ class EventForm extends Component {
 
   onSubmit = async values => {
     await this.sleep(300);
+    this.props.createEvent(values);
   };
 }
 
@@ -266,5 +268,5 @@ export default connect(
     currentDate: currentDateSelector(state),
     users: usersSelector(state)
   }),
-  { changeDate, loadUsersData }
+  { changeDate, loadUsersData, createEvent }
 )(injectSheet(styles)(EventForm));
