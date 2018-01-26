@@ -34,9 +34,12 @@ module.exports = {
   // Event
   createEvent(root, { input, usersIds, roomId }, context) {
     return models.Event.create(input).then(event => {
-      event.setRoom(roomId);
+      // console.log(event.setUsers)
+      // event.setRoom(roomId);
 
-      return event.setUsers(usersIds).then(() => event);
+
+      // return event.setUsers(usersIds).then(() => event);
+      return event;
     });
   },
 

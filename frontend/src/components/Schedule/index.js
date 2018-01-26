@@ -144,6 +144,7 @@ class Schedule extends Component {
         <div className={classes.theadRow}>{this.getHeadRow()}</div>
         {tbody}
 
+        <h3>Собития</h3>
         {events.map(event => (
           <div key={event.id} onClick={this.modifyEvent(event.id)}>
             {event.title} <br />

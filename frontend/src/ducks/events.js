@@ -135,64 +135,40 @@ export function deleteEvent(eventId) {
  * */
 export const createEventSaga = function*(action) {
   const { newEvent } = action.payload;
+  const { users, theme, date, start, end } = newEvent;
 
   yield put({
     type: CREATE_EVENT_START
   });
 
   try {
-    const client = new GraphQLClient('my-endpoint', {
-      headers: {
-        Authorization: 'Bearer my-jwt-token'
-      }
+    const query = `mutation {
+                              createEvent(input: {title: "${theme}", dateStart: "${date}T${start}:00.000Z", dateEnd: "${date}T${end}:00.000Z"},  usersIds: ${users}, roomId: "10") {
+                                id
+                                title
+                                dateStart
+                                dateEnd 
+                              }
+                            }`;
+
+    const dataPromise = request('/graphqul', query);
+
+    const newData = yield dataPromise.then(data => {
+      return data;
     });
 
-    const query = `{
-      
-                              createEvent(input {id, title, dateStart, dateEnd, users, room})
-      }`;
-
-    client.request(query).then(data => console.log(data));
-    //
-    // const query = `{
-    //                    mutation {
-    //                       "createEvent": {
-    //                         "id" : "test",
-    //                         "title" : "test",
-    //                         "dateStart" : "test",
-    //                         "dateEnd" : "test",
-    //                         "users" : "test",
-    //                         "room" : "test"
-    //                       }
-    //                       }
-    //
-    //                   }`;
-    //
-    // const dataPromise = request("/graphqul", query);
-    //
-    // // const newData = yield dataPromise.then(data => {
-    // //     return data;
-    // // });
-    //
-    // yield put({
-    //   type: CREATE_EVENT_SUCCESS,
-    //   // payload: {
-    //   //     events: newData.events,
-    //   // },
-    // });
+    yield put({
+      type: CREATE_EVENT_SUCCESS,
+      payload: {
+        events: newData.events
+      }
+    });
   } catch (error) {
     yield put({
       type: CREATE_EVENT_ERROR,
       payload: { error }
     });
   }
-  // {
-  // users: Array(1),
-  // theme: "12",
-  // start: "12:12",
-  // end: "13:11",
-  // date: "0001-11-11"
-  // }
 };
 
 export const loadEventsSaga = function*(action) {
@@ -203,18 +179,12 @@ export const loadEventsSaga = function*(action) {
   try {
     const query = `{
                     events {
-                        id
-                        title
-                        dateStart
-                        dateEnd
-                        users {
-                          id
-                        }
-                        room {
-                          id
-                        }
-                      }
-                    }`;
+                      id
+                      title
+                      dateStart
+                      dateEnd
+                    }
+                  }`;
 
     const dataPromise = request('/graphqul', query);
 
