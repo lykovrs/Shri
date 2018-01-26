@@ -13,7 +13,11 @@ import {
   changeDate
 } from '../../ducks/rooms';
 import { usersSelector, loadUsersData } from '../../ducks/users';
-import { createEvent } from '../../ducks/events';
+import {
+  editableEventsSelector,
+  createEvent,
+  loadEventData
+} from '../../ducks/events';
 
 /**
  * Стили JSS
@@ -87,7 +91,7 @@ class EventForm extends Component {
    * @return {ReactElement} разметка React
    */
   render() {
-    const { classes, users } = this.props;
+    const { classes, users, id, editable } = this.props;
 
     const dateControlClasses = classNames({
       [classes.control]: true,
@@ -98,9 +102,12 @@ class EventForm extends Component {
       [classes.select]: true,
       [classes.input]: true
     });
+
+    // const {theme} =  this.props.editable
+
     return (
       <div className={classes.main}>
-        <h2>Новая встреча</h2>
+        <h2>{id ? 'Редактировать встречу' : 'Новая встреча'}</h2>
         <Form
           onSubmit={this.onSubmit}
           validate={values => {
@@ -128,7 +135,10 @@ class EventForm extends Component {
 
             return errors;
           }}
-          initialValues={{ users: [] }}
+          initialValues={{
+            theme: this.props.editable.theme,
+            users: []
+          }}
           render={({ handleSubmit, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
               <div className={classes.control}>
@@ -149,7 +159,7 @@ class EventForm extends Component {
               </div>
 
               <div className={dateControlClasses}>
-                <div className={''}>
+                <div>
                   <Field name="date">
                     {({ input, meta }) => (
                       <div>
@@ -243,6 +253,11 @@ class EventForm extends Component {
   componentDidMount() {
     // Запрашиваем данные о пользователях
     this.props.loadUsersData();
+    // Если мы редактируем статью, запрашиваем ее данные
+    const { id } = this.props;
+    if (id) {
+      this.props.loadEventData(id);
+    }
   }
 
   sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -258,7 +273,8 @@ class EventForm extends Component {
  * @type {{classes: object, loading: boolean, loaded: boolean, currentDate: Date}}
  */
 EventForm.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  id: PropTypes.string
 };
 
 export default connect(
@@ -266,7 +282,8 @@ export default connect(
     loading: loadingSelector(state),
     loaded: loadedSelector(state),
     currentDate: currentDateSelector(state),
-    users: usersSelector(state)
+    users: usersSelector(state),
+    editable: editableEventsSelector(state)
   }),
-  { changeDate, loadUsersData, createEvent }
+  { changeDate, loadUsersData, createEvent, loadEventData }
 )(injectSheet(styles)(EventForm));

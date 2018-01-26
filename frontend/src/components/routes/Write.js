@@ -15,7 +15,8 @@ const styles = {
  * Роут просмотра записи
  */
 const WriteRoute = props => {
-  return <EventForm />;
+  const eventId = props.match.params.id;
+  return <EventForm id={eventId} />;
 };
 
 /**

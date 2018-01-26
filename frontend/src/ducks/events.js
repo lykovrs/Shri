@@ -16,6 +16,11 @@ export const LOAD_DATA_START = `${prefix}/LOAD_DATA_START`;
 export const LOAD_DATA_SUCCESS = `${prefix}/LOAD_DATA_SUCCESS`;
 export const LOAD_DATA_ERROR = `${prefix}/LOAD_DATA_ERROR`;
 
+export const LOAD_EVENT_REQUEST = `${prefix}/LOAD_EVENT_REQUEST`;
+export const LOAD_EVENT_START = `${prefix}/LOAD_EVENT_START`;
+export const LOAD_EVENT_SUCCESS = `${prefix}/LOAD_EVENT_SUCCESS`;
+export const LOAD_EVENT_ERROR = `${prefix}/LOAD_EVENT_ERROR`;
+
 export const CREATE_EVENT_REQUEST = `${prefix}/CREATE_EVENT_REQUEST`;
 export const CREATE_EVENT_START = `${prefix}/CREATE_EVENT_START`;
 export const CREATE_EVENT_SUCCESS = `${prefix}/CREATE_EVENT_SUCCESS`;
@@ -28,6 +33,7 @@ export const DELETE_EVENT = `${prefix}/DELETE_EVENT`;
  * Reducer
  * */
 export const ReducerRecord = Record({
+  editable: null,
   loading: false,
   loaded: false,
   items: new List([])
@@ -45,6 +51,16 @@ export default function reducer(state = new ReducerRecord(), action) {
         .setIn(['loading'], false)
         .setIn(['loaded'], true);
     case LOAD_DATA_ERROR:
+      return state.setIn(['loading'], false).setIn(['loaded'], false);
+
+    case LOAD_EVENT_START:
+      return state.setIn(['loading'], true);
+    case LOAD_EVENT_SUCCESS:
+      return state
+        .setIn(['editable'], payload.event)
+        .setIn(['loading'], false)
+        .setIn(['loaded'], true);
+    case LOAD_EVENT_ERROR:
       return state.setIn(['loading'], false).setIn(['loaded'], false);
     case CREATE_EVENT_START:
       return state.setIn(['loading'], true);
@@ -72,6 +88,19 @@ export const eventsSelector = createSelector(stateSelector, state =>
   state.items.toJS()
 );
 
+export const editableEventsSelector = createSelector(stateSelector, state => {
+  // const { dateEnd = '', dateStart, id, room, title, users } = state.editable;
+  const { editable } = state;
+  //
+  return {
+    theme: (editable && editable.title) || '',
+    users: (editable && editable.users) || [],
+    date: '0222-02-12',
+    start: '12:02',
+    end: '22:02'
+  };
+});
+
 /**
  * Action Creators
  * */
@@ -83,6 +112,20 @@ export const eventsSelector = createSelector(stateSelector, state =>
 export function loadEventsData() {
   const action = {
     type: LOAD_DATA_REQUEST
+  };
+
+  return action;
+}
+
+/**
+ * Создает экшн для запроса одной статьи
+ * @param id
+ * @return {Object}         объект экшена
+ */
+export function loadEventData(id) {
+  const action = {
+    type: LOAD_EVENT_REQUEST,
+    payload: { id }
   };
 
   return action;
@@ -206,9 +249,53 @@ export const loadEventsSaga = function*(action) {
   }
 };
 
+export const loadEventSaga = function*(action) {
+  const { id } = action.payload;
+
+  yield put({
+    type: LOAD_EVENT_START
+  });
+
+  try {
+    const query = `{
+                          event(id:${id}) {
+                            id
+                            title
+                            dateStart
+                            dateEnd
+                            users {
+                              id
+                            }
+                            room {
+                              id
+                            }
+                          }
+                        }`;
+
+    const dataPromise = request('/graphqul', query);
+
+    const newData = yield dataPromise.then(data => {
+      return data;
+    });
+
+    yield put({
+      type: LOAD_EVENT_SUCCESS,
+      payload: {
+        event: newData.event
+      }
+    });
+  } catch (error) {
+    yield put({
+      type: LOAD_EVENT_ERROR,
+      payload: { error }
+    });
+  }
+};
+
 export function* saga() {
   yield all([
     takeEvery(LOAD_DATA_REQUEST, loadEventsSaga),
+    takeEvery(LOAD_EVENT_REQUEST, loadEventSaga),
     takeEvery(CREATE_EVENT_REQUEST, createEventSaga)
   ]);
 }

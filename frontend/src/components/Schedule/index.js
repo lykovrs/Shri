@@ -18,6 +18,7 @@ import {
 import RowHeader from '../RowHeader';
 import Slot from '../Slot';
 import { DESCKTOP_BREAK } from '../../constants';
+import { Link } from 'react-router-dom';
 
 /**
  * Стили JSS
@@ -146,8 +147,11 @@ class Schedule extends Component {
 
         <h3>Собития</h3>
         {events.map(event => (
-          <div key={event.id} onClick={this.modifyEvent(event.id)}>
-            {event.title} <br />
+          <div key={event.id}>
+            <Link to={`/edit/${event.id}`} onClick={this.modifyEvent(event.id)}>
+              {event.title}
+            </Link>
+            <br />
             Начало: {event.dateStart} <br /> Конец: {event.dateEnd}
           </div>
         ))}
@@ -171,7 +175,6 @@ class Schedule extends Component {
    * @returns {function(*)}
    */
   modifyEvent = id => ev => {
-    ev.preventDefault();
     this.props.modifyEvent(id);
   };
 

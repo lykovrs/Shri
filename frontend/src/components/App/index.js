@@ -32,7 +32,7 @@ const App = props => {
       <Switch>
         <Route exact path="/" component={MainRoute} />
         <Route path="/create" component={WriteRoute} />
-        <Route path="/write" component={WriteRoute} />
+        <Route path="/edit/:id" component={WriteRoute} />
       </Switch>
     </div>
   );
