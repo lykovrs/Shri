@@ -89,9 +89,7 @@ export const eventsSelector = createSelector(stateSelector, state =>
 );
 
 export const editableEventsSelector = createSelector(stateSelector, state => {
-  // const { dateEnd = '', dateStart, id, room, title, users } = state.editable;
   const { editable } = state;
-  //
   return {
     theme: (editable && editable.title) || '',
     users: (editable && editable.users) || [],

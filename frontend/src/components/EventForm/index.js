@@ -137,7 +137,7 @@ class EventForm extends Component {
           }}
           initialValues={{
             theme: this.props.editable.theme,
-            users: []
+            users: this.props.editable.users
           }}
           render={({ handleSubmit, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
