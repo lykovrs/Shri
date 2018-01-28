@@ -235,7 +235,7 @@ class EventForm extends Component {
               <div className={classes.buttonBar}>
                 <Button
                   type="submit"
-                  text={'Создать встречу'}
+                  text={this.props.id ? 'Изменить встречу' : 'Создать встречу'}
                   disabled={submitting || pristine}
                 />
               </div>
